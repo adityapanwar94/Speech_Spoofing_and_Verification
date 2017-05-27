@@ -21,7 +21,7 @@ Notes:
 1. A brief period of silence (around 0.5 seconds) before speech makes the system better at removing noise.
 2. Assumes No Abrupt Noise during speech, echos or reverberation. These are considered features
 and will be classified so by the Neural Network.
-3. Some lines of code is commented so that they can be used while testing.
+3. Some lines of code are commented so that they can be used while testing.
 
 """
 
@@ -32,30 +32,34 @@ import matplotlib.pyplot as plt
 # Getting Input Speech
 rate, x = sp.read('Input.wav')  # Audio File Named Input.wav must be in the same Directory
 # x = np.ones(16)
-y = np.zeros(len(x))
 
 # Spectral Subtraction Parameters
-Buffer_Size = int(rate*0.020)  # 1 Buffer is around 20 to 30 ms in length.
+Buffer_Size = 256  # int(rate*0.025)  # 1 Buffer is around 20 to 30 ms in length.
+# print(Buffer_Size)
 Overlap = 0.5
-noisy_frames = 0  # Value is Adjustable
+noisy_frames = 10  # Value is Adjustable
+beta = 1
 
 BO = Buffer_Size * Overlap
-time_axis = np.arange(len(x))
 
+# Pad zeros until it becomes a multiple of Buffer Size
+while len(x) % Buffer_Size != 0:
+    x = np.append(x, 0)
+
+time_axis = np.arange(len(x))
+y = np.zeros(len(x))
 # Plotting the Input Data
 plt.figure(1)
 plt.plot(time_axis, x)
 plt.show()
 
-# Pad zeros until it becomes a multiple of Buffer Size
-while len(x) % Buffer_Size != 0:
-    x = np.append(x, 0)
 # Make a list of noisy frames
 noisy_frame_list = np.arange(1, noisy_frames+1, 1)  # This can be trained as well.
 no_of_noisy_frames = len(noisy_frame_list)
 
 # Finding the Last Frame
 last_frame = int(len(x) / BO)
+# print(last_frame)
 
 
 # Function To Get a Frame from Frame Number
@@ -82,33 +86,40 @@ def avg_noise():
 
 # Spectral Subtraction
 mu = avg_noise()
+# print(mu)
 for i in np.arange(1, last_frame, 1):
     number = int((i-1)*BO)
     a = np.array(get_frame(i))
+    # print(a)
     # Windowing Using a Hanning Window
     w_a = np.multiply(a, np.hanning(Buffer_Size))
     # Converting to Frequency Domain
     f_a = np.fft.fft(w_a)
+    # print(f_a)
     mag_a = abs(f_a)
+    # print(mag_a)
     ph_a = np.angle(f_a)
     # Half Wave Rectification
     s_a = np.zeros(len(a))
     for l in np.arange(0, len(mag_a), 1):
         if mag_a[l] >= mu[l]:
-            s_a[l] = mag_a[l] - mu[l]
+            s_a[l] = mag_a[l] - beta*mu[l]
         else:
             s_a[l] = 0
+    # print(s_a)
     # Combining Phase
     sp_a = np.multiply(s_a, np.exp(1j*ph_a))
+    # print(sp_a)
     # Converting back to Time Domain
     clear_a = np.fft.ifft(sp_a)
     # print(clear_a)
+    # print(clear_a)
     # Reconstruction using Overlap - Add Method
     for index in np.arange(number, number + Buffer_Size, 1):
-        y[index] = y[index] + clear_a[index-number]
+        y[index] = y[index] + np.real(clear_a[index-number])
         # print(y)
 # print(y)
-sp.write('Output.wav',rate,y)
+sp.write('Output.wav', 44100, y)
 # Plotting Output
 plt.figure(2)
 plt.plot(time_axis, y)
