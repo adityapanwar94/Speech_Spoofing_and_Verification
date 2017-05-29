@@ -1,12 +1,3 @@
-###################################################################################################
-#
-# Author: Yash Agrawal
-# Project: Speech Verification and Spoofing
-#
-# This is the implementation of a BANDPASS filter which can be used in the noise removal block 
-###################################################################################################
-
-
 from scipy.signal import firwin, remez, kaiser_atten, kaiser_beta
 import scipy.io.wavfile
 import math
