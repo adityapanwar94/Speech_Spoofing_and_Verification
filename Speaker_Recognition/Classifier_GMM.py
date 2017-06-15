@@ -1,6 +1,17 @@
 """
 Classifier Program.
-Input data format is modified for ELSDSR Dataset.
+
+1. This Program is used to correctly detect the Test Speaker from a set of previously trained speakers.
+2. This program runs the forward algorithm to compute log-likelihoods on each model.
+3. A GMM-HMM Model has been built for every speaker using the Training Data. 2 sources have been considered:
+    a. ELSDSR Dataset
+    b. VCTK-Corpus
+4. MFCC Vectors are used as features. (13 features per frame)
+5. A small Confusion Estimate can be made in case 2 models have a very close probability.
+
+NOTE:
+1. The input format has to be changed in case VCTK-Database is used.
+2. no_of_speakers needs to be updated if more Training is done.
 
 """
 
@@ -16,7 +27,7 @@ import numpy as np
 no_of_speakers = 10  # Number of Speakers in the Training Set.
 
 # INPUT.
-test_speech1 = 'FDHH_Sr26.wav'
+test_speech1 = 'MASM_Sr12.wav'
 
 # EXTRACTING MFCC FEATURES.
 test_speech_name = test_speech1[0:4]
@@ -27,7 +38,7 @@ feature_vectors1 = mfcc(speech1, samplerate=rate)
 probability_vector = np.empty(no_of_speakers)
 
 for i in range(no_of_speakers):
-    model_filename = "gmodel"+str(i+1)
+    model_filename = "gmodel"+str(i+1)  # TODO: Change "gmodel" -> "vmodel" everywhere if VCTK-Corpus is used.
     sample = pickle.load(open(model_filename, "rb"))
 
     # RUN FORWARD ALGORITHM TO RETURN PROBABILITY.
@@ -57,3 +68,7 @@ print(closest_match_name)
 #
 # if yes_confusion == 0:
 #     print("--Nil--")
+
+# POSSIBLE EXTENSIONS.
+# TODO: Confusion Estimate.
+# TODO: Create a threshold to identify if the speaker is new.
