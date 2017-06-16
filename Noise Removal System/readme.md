@@ -12,3 +12,7 @@ STEPS:
 3. Initial Noisy Frames are Windowed, Transformed to Frequency Domain (FFT) and Averaged.
 4. Each Frame is Windowed, Transformed to Frequency Domain (FFT) and Subtracted by Average Noise.
 5. Half Wave Rectification is performed. 6. Reconstruction through IFFT and Overlap-Add Method.
+
+Note:
+The Filters are located in a Sub Folder.
+A Low Pass Filter and a Band Pass Filter were implemented.
