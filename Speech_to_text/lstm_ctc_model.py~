@@ -50,8 +50,8 @@ momentum = 0.9
 num_examples = 44085  #8233
 num_batches_per_epoch = int(num_examples/batch_size)
 
-inputs = np.load('train_input.npy')
-labels = np.load('train_label.npy')
+inputs = np.load('allset/train_input_all.npy')
+labels = np.load('allset/train_label_all.npy')
 
 # You can preprocess the input data here
 train_inputs = inputs
@@ -201,7 +201,7 @@ with tf.Session(graph=graph) as session:
         #saving the model every 5th epoch
         if((curr_epoch+1)%5 == 0 ):
             print("model saving starts")
-            saver.save(session, 'saved_models/final_model/s2t')   #PATH TO SAVE THE MODEL(YOUR PATH MAY DIFFER)
+            saver.save(session, 'saved_models/final_model/s2t')
             print("model is saved")
 
 

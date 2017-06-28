@@ -13,8 +13,8 @@ FIRST_INDEX = ord('a') - 1  # 0 is reserved to space
 t = []
 w = []
 for j in range(225, 376):
-    mdir = 's2tdata/wav48/p{0:0=3d}/p{0:0=3d}'.format(j, j)    #PATH TO THE WAV FILES(YOUR PATH WILL DIFFER)
-    mdirt = 's2tdata/txt/p{0:0=3d}/p{0:0=3d}'.format(j, j)     #PATH TO THE TXT FILES(YOUR PATH WILL DIFFER)
+    mdir = 's2tdata/wav48/p{0:0=3d}/p{0:0=3d}'.format(j, j)
+    mdirt = 's2tdata/txt/p{0:0=3d}/p{0:0=3d}'.format(j, j)
     print(j)
     for i in range(1, 501):
         dir = mdir + '_{0:0=3d}.wav'.format(i)
@@ -53,6 +53,6 @@ t = np.asarray(t)
 print(len(w))
 print(len(t))
 #saving the whole matrix of data
-np.save('train_input', w)  
-np.save('train_label', t)
+np.save('convmodel/train_input', w)
+np.save('convmodel/train_label', t)
 print('saved!')

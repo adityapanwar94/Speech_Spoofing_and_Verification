@@ -98,7 +98,7 @@ with graph.as_default():
 with tf.Session(graph=graph) as session:
     tf.global_variables_initializer().run()
     saver = tf.train.Saver()
-    file = open('log.txt', 'w')
+    file = open('loge.txt', 'w')
     #loop for number of epochs
     for curr_epoch in range(num_epochs):
         #loop for batches
