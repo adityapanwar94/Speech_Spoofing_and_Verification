@@ -17,5 +17,3 @@ MENTORS
 1. Aditya Panwar
 2. Vamshi Krishna
 3. Fayyaz
-
-For More Information : https://github.com/eYSIP-2017/eYSIP-2017_Speech_Spoofing_and_Verification/blob/master/Speech%20Recognition%20Project.pdf
