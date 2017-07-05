@@ -1,19 +1,23 @@
 # Speech_Spoofing_and_Verification
 
-GOALS
+## Abstract
 
-1. Noise Removal System - Spectral Subtraction
-2. Speaker Recognition System - GMM-HMM
-3. Speech-to-text Conversion - LSTM & RNN
-4. Speech Spoofing (Speech Synthesis)
+The project contains 3 separate modules that were built using Machine Learning Techniques. 
+Speaker Recognition: Identifying a speaker's voice from a database of 10 speakers with considerable accuracy.
+Speech Spoofing: Voice of a source speaker is converted to a target speaker using Recurrent Neural Networks.
+Speech To Text: Given a speech input, the corresponding text is printed.
 
-TEAM
+![](https://github.com/eYSIP-2017/eYSIP-2017_Speech_Spoofing_and_Verification/blob/master/Workflow.png)
+
+## Team
 
 1. Arvind .S. Kumar
 2. Yash Agrawal
 
-MENTORS
+## Mentors
 
 1. Aditya Panwar
 2. Vamshi Krishna
 3. Fayyaz
+
+For further details, visit [Wiki Page](https://github.com/eYSIP-2017/eYSIP-2017_Speech_Spoofing_and_Verification/wiki)
