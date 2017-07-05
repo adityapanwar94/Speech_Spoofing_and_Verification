@@ -1,4 +1,4 @@
-# Speech_Spoofing_and_Verification
+# Speech Spoofing and Verification
 
 ## Abstract
 
@@ -20,4 +20,6 @@ Speech To Text: Given a speech input, the corresponding text is printed.
 2. Vamshi Krishna
 3. Fayyaz
 
-For further details, visit [Wiki Page](https://github.com/eYSIP-2017/eYSIP-2017_Speech_Spoofing_and_Verification/wiki)
+For Further Documentation & Tutorials, visit [Wiki Page](https://github.com/eYSIP-2017/eYSIP-2017_Speech_Spoofing_and_Verification/wiki)
+
+This Project is a Part of eYSIP-2017.
