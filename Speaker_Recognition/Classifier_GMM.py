@@ -20,44 +20,49 @@ from python_speech_features import mfcc
 import pickle
 import numpy as np
 
-# PARAMETERS
-# N = 3   # Number of Hidden States.
-# n_mix = 128
-# threshold = 0.000000  # Could be used to detect a new speaker...
-no_of_speakers = 10  # Number of Speakers in the Training Set.
 
-# INPUT.
-test_speech1 = 'MASM_Sr12.wav'
+""" INPUTS """
 
-# EXTRACTING MFCC FEATURES.
+no_of_speakers = 10  # TODO: Enter Number of Speakers in Training Set (Number of gmodel files)
+test_speech1 = 'FAML_Sr3.wav'  # TODO: Enter Test File Name Here.
+# test_speech1 = 'MASM_Sr11.wav'
+
+""" FEATURE EXTRACTION """
+
 test_speech_name = test_speech1[0:4]
 rate, speech1 = wavfile.read(test_speech1)
 feature_vectors1 = mfcc(speech1, samplerate=rate)
+# feature_vectors1 = feature_vectors1[0:len(feature_vectors1)/2]  # TODO: To get partial audio.
 
-# COMPUTING LOG PROBABILITY VECTOR FOR EVERY MODEL.
+""" COMPUTING LOG PROBABILITIES """
+
 probability_vector = np.empty(no_of_speakers)
+dictionary = dict()
 
 for i in range(no_of_speakers):
-    model_filename = "gmodel"+str(i+1)  # TODO: Change "gmodel" -> "vmodel" everywhere if VCTK-Corpus is used.
+    model_filename = "gmodel"+str(i+1)
     sample = pickle.load(open(model_filename, "rb"))
 
     # RUN FORWARD ALGORITHM TO RETURN PROBABILITY.
     p1 = sample.model.score(feature_vectors1)
 
-    # PRINTING THE RESULTS.
-    print("Probability for : " + sample.name)
-    print(p1)
+    # PRINTING THE RESULTS AND MAKING A DICTIONARY
+    # print("Probability for " + sample.name + " : " + str(p1))
     probability_vector[i] = p1
+    dictionary[sample.name] = p1
 
-# DECIDING THE CLOSEST MATCH.
+""" DECIDING THE CLOSEST MATCH """
+
 closest_match = np.argmax(probability_vector)
 closest_match_value = np.max(probability_vector)
 closest_match_name = (pickle.load(open("gmodel" + str(closest_match + 1), "rb"))).name
-print("Testing speech is by "+test_speech_name)
-print("Closest Match :")
-print(closest_match_name)
+print("\nLog Probabilities...\n")
+for x in dictionary:
+    print(x, ':', dictionary[x])
+print("\nClosest Match : " + closest_match_name)
 
-# ESTIMATING CONFUSIONS.
+""" CONFUSION ESTIMATE """
+
 # print("Confusion(s):")
 # yes_confusion = 0
 # for i in range(no_of_speakers):
@@ -69,6 +74,7 @@ print(closest_match_name)
 # if yes_confusion == 0:
 #     print("--Nil--")
 
-# POSSIBLE EXTENSIONS.
+""" FUTURE EXTENSIONS """
+
 # TODO: Confusion Estimate.
 # TODO: Create a threshold to identify if the speaker is new.
