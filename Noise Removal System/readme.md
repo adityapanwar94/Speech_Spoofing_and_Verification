@@ -5,7 +5,7 @@ This folder contains Python files, Input speech and Waveforms for Noise Removal 
 
 It is based on the idea that an average estimate of noise from speech signal can be used to remove similar noise in the speech signal.
 
-## STEPS 
+## Steps 
 
 1. Band Pass Filtering.
 2. Speech Input Partitioned into Frames / Buffers with a predefined amount of overlap.
