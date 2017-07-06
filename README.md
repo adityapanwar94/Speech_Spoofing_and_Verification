@@ -7,6 +7,8 @@ The project contains 3 separate modules that were built using Machine Learning T
 2. Speech Spoofing: Voice of a source speaker is converted to a target speaker using Recurrent Neural Networks.
 3. Speech To Text: Given a speech input, the corresponding text is printed.
 
+![](https://github.com/eYSIP-2017/eYSIP-2017_Speech_Spoofing_and_Verification/blob/master/Workflow.png)
+
 ## Team
 
 1. Arvind .S. Kumar
